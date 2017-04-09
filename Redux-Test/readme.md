@@ -1,4 +1,4 @@
-## Redux 初探
+## Redux 初探--加减计数器
 
 > store
 

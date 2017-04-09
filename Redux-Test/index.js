@@ -7,30 +7,30 @@ import counter from './reducers'
 let store = createStore(counter)
 
 class Count extends Component {
-    constructor(props){
-      super()
-      this.state={}
-    }
 
-    addClick (){
-      store.dispatch({type:'add'})
+    addClick() {
+        store.dispatch({type: 'add'})
     }
-    reduceClick(){
-       store.dispatch({type:'reduce'})
+    reduceClick() {
+        store.dispatch({type: 'reduce'})
     }
     render() {
         return (
             <div className='container'>
-                <button className="btn btn-default" onClick={ this.addClick.bind(this) } > add </button>
-                <p className="btn btn-info" >{store.getState()}</p>
-                <button className="btn btn-default"  onClick={ this.reduceClick.bind(this) }  > reduce </button>
+                <button className="btn btn-default" onClick={this.addClick.bind(this)}>
+                    add
+                </button>
+                <p className="btn btn-info">{store.getState()}</p>
+                <button className="btn btn-default" onClick={this.reduceClick.bind(this)}>
+                    reduce
+                </button>
             </div>
         )
     }
 }
 
 let rootEl = document.getElementById('app')
-const rend = ()=> ReactDOM.render(
-  <Count />, rootEl)
+const rend = () => ReactDOM.render(
+    <Count/>, rootEl)
 rend()
-  store.subscribe(rend)
+store.subscribe(rend)
