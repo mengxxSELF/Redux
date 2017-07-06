@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
-import Panel from '../components'
+import {List} from '../components'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import actions from '../redux/actions'
-//
-// @connect((state) => {
-//   return {
-//     tabInfo: state.tabInfo
-//   }
-// },{...actions})
+import './index.less'
 
-class Btn extends Component {
+@connect((state) => {
+  return {
+    tabInfo: state.tabInfo
+  }
+},{...actions})
+export default class Tabs extends Component {
   constructor (props) {
     super()
   }
@@ -19,17 +19,26 @@ class Btn extends Component {
   }
   render () {
     let {tabInfo} = this.props
+    let {tabData, tabName} = tabInfo
+    console.log(tabInfo)
     return (
-      <div>
-        <Panel cont={tabInfo.tabCont} />
-        <button onClick={() => this.handleClick('tom')}>tab1</button>
-        <button onClick={() => this.handleClick('jack')}>tab2</button>
+      <div className='tabs'>
+        <header>
+          <ul className={tabName}>
+            {
+              ['rank', 'songs', 'hot'].map((item, index) => <li key={index} data-name={item} onClick={() => this.handleClick({tabName: item})} >{item}</li>)
+            }
+          </ul>
+        </header>
+        <div className='cont'>
+          <List data={tabData} />
+        </div>
       </div>
     )
   }
 }
 
-export default connect(
-    state => state,
-    dispatch => bindActionCreators(actions, dispatch)
-)(Btn)
+// export default connect(
+//     state => state,
+//     dispatch => bindActionCreators(actions, dispatch)
+// )(Tabs)

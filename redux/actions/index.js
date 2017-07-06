@@ -1,8 +1,8 @@
 import * as CONSTANTS from '../actionType'
-let changeTab = (cont) => {
+let changeTab = ({tabName}) => {
   return {
     type: CONSTANTS.TABINFO,
-    info: cont
+    tabName
   }
 }
 

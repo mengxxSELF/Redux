@@ -1,7 +1,1 @@
-import React from 'react'
-
-export default ({cont}) => {
-  return (
-    <p>{cont}</p>
-  )
-}
+export {default as List} from './List'
