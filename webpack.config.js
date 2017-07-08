@@ -12,22 +12,24 @@ module.exports = {
         filename: 'bundle.js'
     },
     module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                loader: 'babel-loader',
-                // query: {presets: ["es2015", "stage-0", "react"]},
-                exclude: /node_modules/
-            },
-            {test: /\.less$/, use:extract.extract(["css-loader", {
-                loader:'postcss-loader',
-                options:{
-                    plugins:[
-                        require('autoprefixer')
-                    ]
-                }
-            },"less-loader"])}
-        ]
+      rules: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          // query: {presets: ["es2015", "stage-0", "react"]},
+          exclude: /node_modules/
+        },
+        {test: /\.less$/,
+          use:extract.extract(["css-loader",
+          {
+            loader:'postcss-loader',
+            options:{
+              plugins:[
+                require('autoprefixer')
+              ]
+          }
+        },"less-loader"])}
+      ]
     },
     plugins: [
         extract,

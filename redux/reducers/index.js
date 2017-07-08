@@ -1,7 +1,9 @@
 import * as CONSTANTS from '../actionType'
 import { combineReducers } from 'redux'
-
-let rankData = [
+let rank
+let songs
+let hot
+rank = [
   {
       name: ' 棠梨煎雪',
       singer: '西瓜jun'
@@ -24,7 +26,7 @@ let rankData = [
   }
 ]
 
-let songsData = [
+songs = [
     {
         class: '古风',
         songs: [
@@ -84,7 +86,7 @@ let songsData = [
     }
 ]
 // 热门数据
-let hotData = [
+hot = [
     {
         name: '笔墨稠',
         singer: '伦桑'
@@ -97,19 +99,30 @@ let hotData = [
     }
 ]
 
-let datas = {
-  rankData,
-  songsData,
-  hotData
+
+let data = {
+  rank: rank,
+  songs: songs,
+  hot: hot
 }
 
-let tabInfo = (state = {tabData: datas.rankData}, action) => {
+let tabInfo = (state = {tabData: rank, tabName: 'rank'}, action) => {
   let tab = action.tabName
-  console.log(datas[`${tab}data`])
   switch (action.type) {
     case CONSTANTS.TABINFO:
       return Object.assign({}, state, {
-        tabData: datas[`${tab}data`], tabName: tab
+        tabData: data[tab], tabName: tab
+      })
+    default:
+      return state
+  }
+}
+
+let panelInfo = (state = {}, action) => {
+  switch (action.type) {
+    case CONSTANTS.PANELINFO:
+      return Object.assign({}, state, {
+        panelState: action.panel
       })
     default:
       return state
@@ -117,5 +130,6 @@ let tabInfo = (state = {tabData: datas.rankData}, action) => {
 }
 
 export default combineReducers({
-  tabInfo
+  panelInfo,
+  tabInfo,
 })

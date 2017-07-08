@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {List} from '../components'
+import Cont from '../components'
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import actions from '../redux/actions'
@@ -17,26 +17,30 @@ export default class Tabs extends Component {
   handleClick (arg) {
     this.props.changeTab(arg)
   }
+  componentDidMount () {
+    // this.props.changeTab('rank')
+  }
   render () {
     let {tabInfo} = this.props
     let {tabData, tabName} = tabInfo
-    console.log(tabInfo)
     return (
       <div className='tabs'>
         <header>
-          <ul className={tabName}>
+          <ul className={tabName || 'rank'}>
             {
               ['rank', 'songs', 'hot'].map((item, index) => <li key={index} data-name={item} onClick={() => this.handleClick({tabName: item})} >{item}</li>)
             }
           </ul>
         </header>
         <div className='cont'>
-          <List data={tabData} />
+          <Cont {...tabInfo} />
         </div>
       </div>
     )
   }
 }
+
+//
 
 // export default connect(
 //     state => state,

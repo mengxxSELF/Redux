@@ -6,6 +6,15 @@ let changeTab = ({tabName}) => {
   }
 }
 
+let changePanel = (index) => {
+  console.log(index)
+  return {
+    type: CONSTANTS.PANELINFO,
+    panel: index
+  }
+}
+
 export default {
-  changeTab
+  changeTab,
+  changePanel
 }
