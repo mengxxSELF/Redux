@@ -5,27 +5,29 @@ import { connect } from 'react-redux'
 import actions from '../../redux/actions'
 import './index.less'
 
-@connect((state) => {
-  console.log(state)
-  return {
-    panelInfo: state.panelInfo
-  }
-},{...actions})
+@connect(state => ({
+  panelInfo: state.panelInfo
+}),{...actions})
 
 class Tab extends Component {
   constructor(props) {
       super(props)
+      this.changeList = this.changeList.bind(this)
+  }
+  changeList () {
+    let {index, panelInfo} = this.props
+    this.props.changePanel(index)
   }
   render() {
-      let {item, index} = this.props
-      let panel = panelInfo.panelState
+      let {item, index, panelInfo} = this.props
+      let {panelState} = panelInfo
       let dis = panelState === index ? 'show' : 'hide'
       let songsLength = item.songs.length
       return (
         <div className='panel'>
           <div className='panelHead'>
             <span>{item.class}</span>
-            <button onClick={this.props.changePanel(index)}>{panelState ? '折叠列表' : '展开列表'}</button>
+            <button onClick={this.changeList}>{dis === 'show' ? '折叠列表' : '展开列表'}</button>
           </div>
           <div className={`panelBody ${dis}`}>
             <ul>

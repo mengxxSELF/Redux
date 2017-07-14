@@ -5,18 +5,27 @@
 
     li {
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
         padding: 10px 15px;
         background-color: #fff;
-
         // 除了最后一个
         &:not(:last-child) {
             border-bottom: 1px solid #d6e9c6;
         }
-        span{
-          &:last-child{
-            color: #c9deb8;
-          }
+
+        span {
+            &:last-child {
+                color: #c9deb8;
+            }
+        }
+
+        b {
+            font-size: 12px;
+            color: #fff;
+            border-radius: 6px;
+            padding: 4px;
+            display: inline-block;
+            background: #c9deb8;
         }
     }
 }

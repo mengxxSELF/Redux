@@ -5,16 +5,24 @@ let changeTab = ({tabName}) => {
     tabName
   }
 }
-
+// songs 互斥
 let changePanel = (index) => {
-  console.log(index)
   return {
     type: CONSTANTS.PANELINFO,
     panel: index
   }
 }
 
+// hot 取消收藏
+let cancelColl = (name) => {
+  return {
+    type: CONSTANTS.DELETECOLLECTION,
+    name
+  }
+}
+
 export default {
   changeTab,
+  cancelColl,
   changePanel
 }

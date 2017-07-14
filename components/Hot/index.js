@@ -1,52 +1,42 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import './index.less'
+import { connect } from 'react-redux'
+import actions from '../../redux/actions'
+
+@connect(state => ({
+  collection: state.collection
+}),{...actions})
 
 export default class Hot extends Component {
     constructor(props) {
         super(props)
-        this.handleClick = this.handleClick.bind(this)
     }
 
-    componentDidMount() {
-      let box= this.refs.myInput
-      let dom = ReactDOM.findDOMNode(box)
-      console.log(dom);
-    }
-
-    handleClick(e) {
-        e.target.parentNode.style.display = 'none'
-
+    handleClick(name) {
+      this.props.cancelColl(name)
     }
     render() {
-        let {tabData} = this.props
-        return (
-            <ul className='hot hotTab'>
-                <Input ref='myInput'/>
-                {tabData && tabData.map((item, index) => {
-                    return (
-                        <li key={index}>
-                            <p>
-                                <span>{item.name}</span>
-                                <span>
-                                    -- {item.singer}</span>
-                            </p>
-                            <b onClick={this.handleClick}>
-                                取消收藏</b>
-                        </li>
-                    )
-                })
-}
-            </ul>
-        )
+      let {tabData} = this.props.collection
+      return (
+        <ul className='hot hotTab'>
+          {
+            tabData.length < 1 && <b style={{textAlign: 'center', color: '#000', display: 'block'}}> 您还没收藏任何歌曲 </b>
+          }
+          {tabData && tabData.map((item, index) => {
+              return (
+                <li key={index}>
+                    <p>
+                      <span>{item.name}</span>
+                      <span> -- {item.singer}</span>
+                    </p>
+                    <b onClick={() => this.handleClick(item.name)}> 取消收藏</b>
+                </li>
+              )
+            })
+          }
+        </ul>
+      )
     }
 
-}
-
-let Input = (props) => {
-    return (
-        <div className="form-group">
-            <input type="text" className="form-control" placeholder="search"/>
-        </div>
-    )
 }

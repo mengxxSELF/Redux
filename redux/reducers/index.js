@@ -106,6 +106,21 @@ let data = {
   hot: hot
 }
 
+
+let panelInfo = (state = {panelState: 0}, action) => {
+  switch (action.type) {
+    case CONSTANTS.PANELINFO:
+      // 自己点击自己  彼此统计互斥
+      let panelNum = state.panelState == action.panel ? 'self' : action.panel
+      return Object.assign({}, state, {
+        panelState: panelNum
+      })
+    default:
+      return state
+  }
+}
+
+
 let tabInfo = (state = {tabData: rank, tabName: 'rank'}, action) => {
   let tab = action.tabName
   switch (action.type) {
@@ -118,12 +133,14 @@ let tabInfo = (state = {tabData: rank, tabName: 'rank'}, action) => {
   }
 }
 
-let panelInfo = (state = {}, action) => {
+let collection = (state = {tabData: data['rank']}, action) => {
   switch (action.type) {
-    case CONSTANTS.PANELINFO:
+    case  CONSTANTS.DELETECOLLECTION:
+      let lastList = state.tabData.filter((item) => item.name != action.name)
       return Object.assign({}, state, {
-        panelState: action.panel
+        tabData: lastList
       })
+      break;
     default:
       return state
   }
@@ -132,4 +149,5 @@ let panelInfo = (state = {}, action) => {
 export default combineReducers({
   panelInfo,
   tabInfo,
+  collection
 })
